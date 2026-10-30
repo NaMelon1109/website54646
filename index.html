@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>高一17班 · 课堂助手（破解版）</title>
+<title>高一17班 · 课堂助手</title>
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -559,7 +559,7 @@
     100% { opacity: 0; transform: translate(-50%, -42px) scale(1); }
   }
 
-  /* ========== 分贝检测 ========== */
+  /* ========== 音量监测 ========== */
   .meter-card {
     padding: 34px 38px 28px;
     transition: box-shadow .3s;
@@ -1334,14 +1334,14 @@
   .seat.rank-king { box-shadow: 0 0 0 1px rgba(220, 38, 38, .18); }
 
   .seat.custom-color {
-    background: hsl(var(--hue) 72% calc(97% - var(--depth) * 15%));
-    border-color: hsl(var(--hue) 62% calc(72% - var(--depth) * 24%));
+    background: hsl(var(--hue) 84% 96%);
+    border-color: hsl(var(--hue) 58% 76%);
   }
   .seat.custom-color .seat-name {
-    color: hsl(var(--hue) 42% calc(38% - var(--depth) * 12%));
+    color: hsl(var(--hue) 44% 32%);
   }
   .seat.custom-color .seat-score {
-    color: hsl(var(--hue) 72% calc(52% - var(--depth) * 22%));
+    color: hsl(var(--hue) 70% 40%);
   }
 
   .seat-del {
@@ -1505,6 +1505,109 @@
   }
   .modal-btn.ok:hover { transform: translateY(-1px); }
   .modal-btn.ok:active { transform: translateY(0) scale(.98); }
+  .modal-btn:disabled {
+    opacity: .45;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+  }
+
+  /* ========== 导入座位表弹窗 ========== */
+  .import-box {
+    width: min(560px, 100%);
+    text-align: left;
+  }
+  .import-box h3 { text-align: center; }
+  .import-box .import-tip {
+    text-align: left;
+    font-size: 12.5px;
+    line-height: 1.7;
+    color: #64748b;
+    margin-bottom: 12px;
+  }
+  .modal-box .import-file {
+    width: 100%;
+    padding: 12px 14px;
+    border: 2px dashed #c7d2fe;
+    border-radius: 12px;
+    background: #f5f7ff;
+    font-family: inherit;
+    font-size: 13px;
+    color: #475569;
+    cursor: pointer;
+    margin-bottom: 12px;
+  }
+  .modal-box .import-file::file-selector-button {
+    margin-right: 10px;
+    padding: 6px 12px;
+    border: none;
+    border-radius: 9px;
+    background: linear-gradient(135deg, #6366f1, #8b5cf6);
+    color: #fff;
+    font-family: inherit;
+    font-size: 12.5px;
+    font-weight: 700;
+    cursor: pointer;
+  }
+  .import-summary {
+    font-size: 12.5px;
+    font-weight: 700;
+    color: #4f46e5;
+    margin-bottom: 8px;
+    line-height: 1.6;
+  }
+  .import-summary.error { color: #ef4444; }
+  .import-preview {
+    display: none;
+    max-height: 200px;
+    overflow: auto;
+    border: 1px solid #e8edf5;
+    border-radius: 12px;
+    background: #fafbff;
+    padding: 10px 12px;
+    margin-bottom: 12px;
+  }
+  .import-preview.show { display: block; }
+  .import-group { margin-bottom: 8px; }
+  .import-group:last-child { margin-bottom: 0; }
+  .import-gtag {
+    display: inline-block;
+    font-size: 11.5px;
+    font-weight: 800;
+    color: #4338ca;
+    background: #eef2ff;
+    border-radius: 6px;
+    padding: 2px 8px;
+    margin-right: 6px;
+  }
+  .import-gnames {
+    font-size: 12px;
+    color: #475569;
+    line-height: 1.75;
+  }
+  .import-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+    flex-wrap: wrap;
+  }
+  .import-actions .modal-btn { flex: 1 1 110px; }
+  .import-template {
+    text-align: center;
+    margin-top: 10px;
+  }
+  .import-template button {
+    border: none;
+    background: none;
+    color: #6366f1;
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    text-decoration: underline;
+    padding: 2px;
+  }
+  .import-template button:hover { color: #4338ca; }
 
   /* ========== 密码弹窗专用 ========== */
   .pwd-box {
@@ -1654,7 +1757,136 @@
   }
   .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
+  /* ========== 顶部信息栏 ========== */
+  .app-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    flex-wrap: wrap;
+    margin-bottom: 16px;
+    padding: 0 4px;
+    color: #fff;
+  }
+  .brand { display: flex; align-items: center; gap: 12px; }
+  .brand-mark {
+    width: 42px;
+    height: 42px;
+    flex-shrink: 0;
+    border-radius: 13px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 19px;
+    font-weight: 800;
+    background: linear-gradient(135deg, #60a5fa, #a855f7);
+    box-shadow: 0 8px 20px rgba(59, 130, 246, .38);
+  }
+  .brand-text strong {
+    display: block;
+    font-size: 16px;
+    font-weight: 800;
+    letter-spacing: 2px;
+  }
+  .brand-text span {
+    display: block;
+    margin-top: 3px;
+    font-size: 11.5px;
+    letter-spacing: 1px;
+    color: rgba(255, 255, 255, .66);
+  }
+  .head-right { display: flex; align-items: center; gap: 10px; }
+  .clock {
+    padding: 8px 16px;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, .13);
+    border: 1px solid rgba(255, 255, 255, .2);
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+  .head-btn {
+    width: 38px;
+    height: 38px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, .2);
+    background: rgba(255, 255, 255, .13);
+    color: #fff;
+    font-size: 16px;
+    line-height: 1;
+    cursor: pointer;
+    transition: background .18s, transform .18s;
+  }
+  .head-btn:hover { background: rgba(255, 255, 255, .26); }
+  .head-btn:active { transform: scale(.94); }
+
+  /* ========== 座位卡尺寸档位（随段位递进） ========== */
+  .seat {
+    width: 74px;
+    height: 92px;
+    padding: 6px 4px 5px;
+    gap: 3px;
+    --sn: 12px;
+    --ss: 18px;
+    --sr: 10px;
+  }
+  .seat.size-0 { width: 70px;  height: 88px;  --sn: 11.5px; --ss: 17px; --sr: 9.5px; }
+  .seat.size-1 { width: 72px;  height: 91px;  --sn: 12px;   --ss: 18px; --sr: 10px;  }
+  .seat.size-2 { width: 75px;  height: 94px;  --sn: 12.5px; --ss: 19px; --sr: 10px;  }
+  .seat.size-3 { width: 78px;  height: 97px;  --sn: 13px;   --ss: 20px; --sr: 10.5px;}
+  .seat.size-4 { width: 81px;  height: 100px; --sn: 13.5px; --ss: 21px; --sr: 11px;  }
+  .seat.size-5 { width: 84px;  height: 103px; --sn: 14px;   --ss: 22px; --sr: 11px;  }
+  .seat.size-6 { width: 88px;  height: 107px; --sn: 14.5px; --ss: 24px; --sr: 11.5px;}
+  .seat-name  { font-size: var(--sn); }
+  .seat-score { font-size: var(--ss); }
+  .seat-rank  { font-size: var(--sr); padding: 1px 5px; }
+  .seat-btns  { margin-top: 1px; }
+  .seat-btn   { flex: 0 0 26px; height: 16px; font-size: 12px; }
+  .seat-del   { width: 15px; height: 15px; }
+
+  .sg-mvp-slot:empty { display: none; }
+
+  .sg-empty,
+  .gcm-empty {
+    font-size: 12px;
+    color: #94a3b8;
+    letter-spacing: 1px;
+    padding: 12px 6px;
+  }
+  .gcm-empty { grid-column: 1 / -1; background: #fff; text-align: center; }
+  .empty-board {
+    padding: 40px 16px;
+    border-radius: 16px;
+    background: #f8fafc;
+    border: 1px dashed #cbd5e1;
+    color: #94a3b8;
+    font-size: 13.5px;
+    letter-spacing: 1px;
+    text-align: center;
+  }
+
+  .meter-unit { font-size: 15px; letter-spacing: 1px; }
+
   /* ========== 响应式 ========== */
+  @media (max-width: 560px) {
+    .app-head { margin-bottom: 12px; }
+    .brand-mark { width: 36px; height: 36px; font-size: 16px; border-radius: 11px; }
+    .brand-text strong { font-size: 14px; letter-spacing: 1px; }
+    .brand-text span { font-size: 10.5px; }
+    .clock { padding: 6px 11px; font-size: 12px; }
+    .head-btn { width: 34px; height: 34px; }
+    .seat { width: 64px; height: 82px; padding: 5px 3px 4px; }
+    .seat.size-0 { width: 61px; height: 79px; --sn: 10.5px; --ss: 15px; --sr: 9px; }
+    .seat.size-1 { width: 63px; height: 81px; --sn: 11px;   --ss: 16px; --sr: 9px; }
+    .seat.size-2 { width: 65px; height: 84px; --sn: 11.5px; --ss: 17px; --sr: 9.5px; }
+    .seat.size-3 { width: 67px; height: 86px; --sn: 12px;   --ss: 18px; --sr: 9.5px; }
+    .seat.size-4 { width: 69px; height: 89px; --sn: 12.5px; --ss: 19px; --sr: 10px; }
+    .seat.size-5 { width: 71px; height: 91px; --sn: 13px;   --ss: 20px; --sr: 10px; }
+    .seat.size-6 { width: 73px; height: 94px; --sn: 13.5px; --ss: 22px; --sr: 10.5px; }
+  }
+
   @media (max-width: 720px) {
     .seating-board { grid-template-columns: 1fr; }
     .scoreboard { grid-template-columns: 1fr; }
@@ -1693,9 +1925,23 @@
 
 <div class="app">
 
+  <header class="app-head">
+    <div class="brand">
+      <div class="brand-mark">17</div>
+      <div class="brand-text">
+        <strong>高一(17)班 · 课堂助手</strong>
+        <span>随机点名 · 音量监测 · 成长树 · 积分管理</span>
+      </div>
+    </div>
+    <div class="head-right">
+      <span class="clock" id="clock">--</span>
+      <button class="head-btn" id="fsBtn" title="切换全屏" aria-label="切换全屏">⛶</button>
+    </div>
+  </header>
+
   <nav class="tabs">
     <button class="tab active" data-tab="picker">🎲 随机点名</button>
-    <button class="tab"        data-tab="meter">🔊 分贝检测</button>
+    <button class="tab"        data-tab="meter">🔊 音量监测</button>
     <button class="tab"        data-tab="tree">🌳 声音之树</button>
     <button class="tab locked" data-tab="score">📊 小组积分</button>
     <button class="tab locked" data-tab="conduct">🏆 操行分</button>
@@ -1731,14 +1977,14 @@
   <section class="panel" id="panel-meter">
     <div class="card meter-card" id="meterCard">
       <div class="meter-head">
-        <h2>班级分贝检测仪</h2>
+        <h2>教室音量监测</h2>
         <span class="meter-status" id="meterStatus">未启动</span>
       </div>
 
       <div class="meter-body">
         <div class="meter-readout">
           <span class="meter-value" id="meterValue">--</span>
-          <span class="meter-unit">dB</span>
+          <span class="meter-unit">/ 100</span>
         </div>
 
         <div class="meter-visual">
@@ -1764,7 +2010,7 @@
           </div>
           <div class="alarm-slider-wrap">
             <input type="range" class="alarm-slider" id="alarmSlider" min="40" max="100" step="1" value="75" />
-            <span class="alarm-threshold-value" id="alarmThresholdValue">75 dB</span>
+            <span class="alarm-threshold-value" id="alarmThresholdValue">75 / 100</span>
           </div>
         </div>
 
@@ -1786,7 +2032,7 @@
       </div>
 
       <p class="meter-tip">
-        需在 HTTPS 或 localhost 环境下允许麦克风权限 · 数值为相对响度参考 · 切换到其他标签时检测会继续运行
+        需在 HTTPS 或 localhost 环境下允许麦克风权限 · 显示为 0–100 的相对音量指数（并非专业分贝值）· 阈值 75 约为「明显吵闹」· 切换标签后检测会继续运行
       </p>
     </div>
   </section>
@@ -1873,6 +2119,7 @@
 
       <div class="toolbar">
         <button class="tool-btn ghost" id="sortConductBtn">排序：座位表</button>
+        <button class="tool-btn" id="importSeatBtn">📥 导入座位表</button>
         <button class="tool-btn" id="addStudentBtn">＋ 学生</button>
         <button class="tool-btn ghost" id="resetConductBtn">一键重置</button>
       </div>
@@ -1911,6 +2158,40 @@
     <div class="modal-btns">
       <button class="modal-btn cancel" id="inputCancel">取消</button>
       <button class="modal-btn ok" id="inputOk">添加</button>
+    </div>
+  </div>
+</div>
+
+<!-- 重命名小组弹窗 -->
+<div class="modal" id="renameModal">
+  <div class="modal-box">
+    <h3>重命名小组</h3>
+    <input type="text" id="renameInput" placeholder="请输入小组名称" maxlength="12" autocomplete="off" />
+    <div class="modal-btns">
+      <button class="modal-btn cancel" id="renameCancel">取消</button>
+      <button class="modal-btn ok" id="renameOk">保存</button>
+    </div>
+  </div>
+</div>
+
+<!-- 导入座位表弹窗 -->
+<div class="modal" id="importModal">
+  <div class="modal-box import-box">
+    <h3>导入座位表</h3>
+    <p class="import-tip">
+      支持 Excel（.xlsx）与 CSV。每行一名学生：第一列姓名，第二列小组；小组留空会沿用上一行。
+      也可以做成座位网格，或在姓名上方单独一行写「一组」这类分组，程序会自动识别。
+    </p>
+    <input type="file" class="import-file" id="importFile" accept=".xlsx,.csv,.txt" />
+    <div class="import-summary" id="importSummary">选择文件后会在这里显示识别结果</div>
+    <div class="import-preview" id="importPreview"></div>
+    <div class="import-actions">
+      <button class="modal-btn cancel" id="importCancel">取消</button>
+      <button class="modal-btn cancel" id="importAppendBtn" disabled>追加导入</button>
+      <button class="modal-btn ok" id="importReplaceBtn" disabled>覆盖名单</button>
+    </div>
+    <div class="import-template">
+      <button type="button" id="importTemplateBtn">下载座位表模板（CSV，含当前名单）</button>
     </div>
   </div>
 </div>
@@ -1958,10 +2239,6 @@ function escapeHtml(s) {
   ));
 }
 
-function uid(prefix) {
-  return (prefix || '') + Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
-}
-
 function seededRandom(seed) {
   const x = Math.sin(seed * 12.9898) * 43758.5453;
   return x - Math.floor(x);
@@ -1973,18 +2250,63 @@ const confirmMsgEl     = document.getElementById('confirmMsg');
 const confirmOkBtn     = document.getElementById('confirmOk');
 const confirmCancelBtn = document.getElementById('confirmCancel');
 
+/* 弹窗管理：统一处理焦点、Esc 关闭、点击遮罩关闭 */
+let activeModal    = null;
+let lastFocusedEl  = null;
+let confirmCallback = null;
+
+function openModal(el, focusTarget) {
+  activeModal = el;
+  if (document.activeElement && document.activeElement !== document.body) {
+    lastFocusedEl = document.activeElement;
+  }
+  el.classList.add('open');
+  const target = focusTarget ||
+    el.querySelector('input:not([type="hidden"]):not([disabled]), select, .modal-btn.ok, .pwd-btn.ok, button:not([disabled])');
+  if (target) setTimeout(() => { try { target.focus(); } catch (err) {} }, 60);
+}
+
+function closeModal(el) {
+  const m = el || activeModal;
+  if (!m) return;
+
+  m.classList.remove('open');
+  if (m.id === 'confirmModal') confirmCallback = null;
+  if (m.id === 'pwdModal') pendingTab = null;
+  if (activeModal === m) activeModal = null;
+
+  if (lastFocusedEl && typeof lastFocusedEl.focus === 'function') {
+    try { lastFocusedEl.focus(); } catch (err) {}
+  }
+  lastFocusedEl = null;
+}
+
+document.addEventListener('keydown', e => {
+  if (e.key !== 'Escape' || !activeModal) return;
+  e.preventDefault();
+  e.stopPropagation();
+  closeModal(activeModal);
+}, true);
+
 function askConfirm(title, msg, onOk) {
   confirmTitleEl.textContent = title;
   confirmMsgEl.textContent = msg;
-  confirmModal.classList.add('open');
-  confirmOkBtn.onclick = () => {
-    confirmModal.classList.remove('open');
-    onOk();
-  };
+  confirmCallback = onOk;
+  openModal(confirmModal, confirmOkBtn);
 }
-confirmCancelBtn.addEventListener('click', () => confirmModal.classList.remove('open'));
+
+confirmOkBtn.addEventListener('click', () => {
+  const cb = confirmCallback;
+  confirmCallback = null;
+  closeModal(confirmModal);
+  if (cb) cb();
+});
+confirmCancelBtn.addEventListener('click', () => closeModal(confirmModal));
 confirmModal.addEventListener('click', e => {
-  if (e.target === confirmModal) confirmModal.classList.remove('open');
+  if (e.target === confirmModal) closeModal(confirmModal);
+});
+confirmModal.addEventListener('keydown', e => {
+  if (e.key === 'Enter') { e.preventDefault(); confirmOkBtn.click(); }
 });
 
 
@@ -2018,40 +2340,14 @@ const RANK_BADGE_COLORS = {
   '王者': { bg: '#ffe9d2', fg: '#b91c1c' }
 };
 
-const CONDUCT_STORAGE_KEY = 'gy17-conduct-v4';
+/* ==========================================================
+   统一数据层（唯一数据源）
+   学生名单 · 小组 · 个人操行分 · 小组积分 全部由此管理
+   任何增删改都会同步到点名器 / 小组积分 / 操行分三个模块
+   ========================================================== */
 const INIT_SCORE = 100;
 
-function getConductScoreMap() {
-  const map = {};
-  try {
-    const raw = localStorage.getItem(CONDUCT_STORAGE_KEY);
-    if (raw) {
-      const data = JSON.parse(raw);
-      if (Array.isArray(data)) {
-        data.forEach(s => {
-          if (s && s.name) {
-            map[String(s.name)] = Number(s.score) || 0;
-          }
-        });
-      }
-    }
-  } catch (e) {}
-
-  Object.values(GROUP_MEMBERS).forEach(list => {
-    list.forEach(name => {
-      if (map[name] === undefined || map[name] === null) {
-        map[name] = INIT_SCORE;
-      }
-    });
-  });
-
-  return map;
-}
-
-
-/* ==========================================================
-   公共分组数据
-   ========================================================== */
+/* 初始名单：仅在首次使用时作为默认数据 */
 const GROUP_MEMBERS = {
   '一组': ['董子恒','卢丞锐','吴蓬勃','唐昊天','李语菡','彭汪钰','樊哲希','周思嫣','黄诗悦','戴梓妍'],
   '二组': ['金羽霏','甘雨彤','胡紫晗','彭秉钊','李泽逸','李梓祺','李雨彤','周语桐','谭嘉琳'],
@@ -2066,21 +2362,205 @@ const GROUP_HUES = {
   '四组': 160, '五组': 189, '六组': 217
 };
 
-const nameToGroup = {};
-Object.entries(GROUP_MEMBERS).forEach(([g, names]) => {
-  names.forEach(n => { nameToGroup[n] = g; });
+const ROSTER_KEY     = 'gy17-roster-v1';
+const GROUP_META_KEY = 'gy17-group-meta-v1';
+const CONDUCT_KEY    = 'gy17-conduct-scores-v1';
+const TREE_KEY       = 'gy17-sound-tree-v1';
+
+/* 旧版存储：仅用于一次性迁移 */
+const LEGACY_CONDUCT_KEY = 'gy17-conduct-v4';
+const LEGACY_GROUP_KEY   = 'gy17-group-scores-v6';
+
+const DEFAULT_ROSTER = [];
+Object.entries(GROUP_MEMBERS).forEach(([group, names]) => {
+  names.forEach(name => DEFAULT_ROSTER.push({ name, group }));
 });
 
-const DEFAULT_GROUPS = Object.entries(GROUP_MEMBERS).map(([name, members]) => ({ name, members }));
+let roster        = [];   // [{ name, group }] 学生名单（顺序 = 座位顺序）
+let groupMeta     = [];   // [{ name, score, hue }] 小组顺序 / 积分 / 色相
+let conductScores = {};   // { 学生姓名: 操行分 }
 
-const students = [];
-Object.values(GROUP_MEMBERS).forEach(list => students.push(...list));
+/* 派生数据（供点名器使用） */
+let students    = [];
+let nameToGroup = {};
+
+function readJSON(key) {
+  try {
+    const raw = localStorage.getItem(key);
+    return raw ? JSON.parse(raw) : null;
+  } catch (err) {
+    return null;
+  }
+}
+
+function writeJSON(key, value) {
+  try { localStorage.setItem(key, JSON.stringify(value)); } catch (err) {}
+}
+
+function hashHue(name) {
+  let h = 0;
+  for (let i = 0; i < name.length; i++) h = (h * 31 + name.charCodeAt(i)) % 360;
+  return h;
+}
+
+function baseHue(name) {
+  return GROUP_HUES[name] !== undefined ? GROUP_HUES[name] : hashHue(name);
+}
+
+function hueOfGroup(name) {
+  const g = groupMeta.find(x => x.name === name);
+  return g ? g.hue : baseHue(name);
+}
+
+function defaultGroupMeta() {
+  return Object.keys(GROUP_MEMBERS).map(name => ({
+    name,
+    score: 0,
+    hue: baseHue(name)
+  }));
+}
+
+function getScore(name) {
+  const v = Number(conductScores[name]);
+  return Number.isFinite(v) ? v : INIT_SCORE;
+}
+
+function rosterOfGroup(groupName) {
+  return roster.filter(s => s.group === groupName);
+}
+
+function persistRoster()  { writeJSON(ROSTER_KEY, roster); }
+function persistGroups()  { writeJSON(GROUP_META_KEY, groupMeta); }
+function persistConduct() { writeJSON(CONDUCT_KEY, conductScores); }
+function persistAll() {
+  persistRoster();
+  persistGroups();
+  persistConduct();
+}
+
+/* 旧数据迁移：把 v4 操行分 + v6 小组积分合并成新结构 */
+function migrateData() {
+  if (readJSON(ROSTER_KEY)) return;
+
+  const legacyConduct = readJSON(LEGACY_CONDUCT_KEY);
+  const legacyGroups  = readJSON(LEGACY_GROUP_KEY);
+
+  const nextRoster = [];
+  const seen = new Set();
+
+  const addStudent = (name, group) => {
+    const n = String(name == null ? '' : name).trim().slice(0, 10);
+    if (!n || seen.has(n)) return;
+    seen.add(n);
+    nextRoster.push({ name: n, group: String(group || '一组').trim().slice(0, 12) || '一组' });
+  };
+
+  if (Array.isArray(legacyConduct)) {
+    legacyConduct.forEach(s => {
+      if (!s || !s.name) return;
+      addStudent(s.name, s.group);
+      const v = Number(s.score);
+      conductScores[String(s.name).trim().slice(0, 10)] = Number.isFinite(v) ? v : INIT_SCORE;
+    });
+  }
+
+  if (Array.isArray(legacyGroups)) {
+    legacyGroups.forEach(g => {
+      if (!g) return;
+      (Array.isArray(g.members) ? g.members : []).forEach(n => addStudent(n, g.name));
+    });
+  }
+
+  if (!nextRoster.length) {
+    DEFAULT_ROSTER.forEach(s => addStudent(s.name, s.group));
+  }
+  roster = nextRoster;
+
+  groupMeta = [];
+  if (Array.isArray(legacyGroups)) {
+    legacyGroups.forEach(g => {
+      if (!g) return;
+      const name = String(g.name || '小组').trim().slice(0, 12) || '小组';
+      if (groupMeta.some(x => x.name === name)) return;
+      const v = Number(g.score);
+      groupMeta.push({ name, score: Number.isFinite(v) ? v : 0, hue: baseHue(name) });
+    });
+  }
+  if (!groupMeta.length) groupMeta = defaultGroupMeta();
+
+  roster.forEach(s => {
+    if (!groupMeta.some(g => g.name === s.group)) {
+      groupMeta.push({ name: s.group, score: 0, hue: baseHue(s.group) });
+    }
+    if (conductScores[s.name] === undefined) conductScores[s.name] = INIT_SCORE;
+  });
+
+  persistAll();
+}
+
+function loadData() {
+  migrateData();
+
+  const r = readJSON(ROSTER_KEY);
+  const g = readJSON(GROUP_META_KEY);
+  const c = readJSON(CONDUCT_KEY);
+
+  roster = Array.isArray(r)
+    ? r.filter(s => s && s.name).map(s => ({
+        name:  String(s.name).slice(0, 10),
+        group: (String(s.group || '一组').slice(0, 12) || '一组')
+      }))
+    : [];
+
+  groupMeta = Array.isArray(g) && g.length
+    ? g.filter(x => x && x.name).map(x => ({
+        name:  String(x.name).slice(0, 12),
+        score: Number.isFinite(Number(x.score)) ? Number(x.score) : 0,
+        hue:   Number.isFinite(Number(x.hue)) ? Number(x.hue) : baseHue(String(x.name))
+      }))
+    : defaultGroupMeta();
+
+  if (!groupMeta.length) groupMeta = defaultGroupMeta();
+
+  conductScores = {};
+  if (c && typeof c === 'object' && !Array.isArray(c)) {
+    Object.keys(c).forEach(k => {
+      const v = Number(c[k]);
+      conductScores[k] = Number.isFinite(v) ? v : INIT_SCORE;
+    });
+  }
+
+  roster.forEach(s => {
+    if (conductScores[s.name] === undefined) conductScores[s.name] = INIT_SCORE;
+    if (!groupMeta.some(x => x.name === s.group)) {
+      groupMeta.push({ name: s.group, score: 0, hue: baseHue(s.group) });
+    }
+  });
+}
+
+function refreshRosterDerived() {
+  students = roster.map(s => s.name);
+  nameToGroup = {};
+  roster.forEach(s => { nameToGroup[s.name] = s.group; });
+}
+
+/* 名单变化后同步所有模块 */
+function afterRosterChange() {
+  refreshRosterDerived();
+  if (typeof syncPickerRoster === 'function') syncPickerRoster();
+  if (typeof refreshGroupScoreboard === 'function') refreshGroupScoreboard(true);
+  if (typeof renderSeating === 'function') renderSeating();
+  if (typeof updateConductSub === 'function') updateConductSub();
+}
+
+loadData();
+refreshRosterDerived();
 
 
 /* ==========================================================
    ★ 密码验证（小组积分 / 操行分共用）
    ========================================================== */
-const ACCESS_PASSWORD = '123456';
+const ACCESS_PASSWORD = '202617';
 let accessGranted = false;        // 本次会话是否已通过验证
 let pendingTab = null;            // 待解锁后跳转的标签
 
@@ -2097,12 +2577,11 @@ function openPwdModal(targetTab) {
   pwdInput.value = '';
   pwdInput.classList.remove('error');
   pwdError.classList.remove('show');
-  pwdModal.classList.add('open');
-  setTimeout(() => pwdInput.focus(), 80);
+  openModal(pwdModal, pwdInput);
 }
 
 function closePwdModal() {
-  pwdModal.classList.remove('open');
+  closeModal(pwdModal);
   pendingTab = null;
 }
 
@@ -2115,7 +2594,7 @@ function tryUnlock() {
     document.querySelectorAll('.tab.locked').forEach(el => el.classList.remove('locked'));
 
     const target = pendingTab;
-    pwdModal.classList.remove('open');
+    closeModal(pwdModal);
     pendingTab = null;
 
     showToast('已解锁');
@@ -2130,6 +2609,11 @@ function tryUnlock() {
 
 pwdOk.addEventListener('click', tryUnlock);
 pwdCancel.addEventListener('click', closePwdModal);
+pwdInput.addEventListener('input', () => {
+  // 只允许数字，避免粘贴非数字内容
+  const cleaned = pwdInput.value.replace(/[^\d]/g, '').slice(0, 6);
+  if (cleaned !== pwdInput.value) pwdInput.value = cleaned;
+});
 pwdInput.addEventListener('keydown', e => {
   if (e.key === 'Enter') tryUnlock();
 });
@@ -2153,12 +2637,11 @@ function switchToTab(target) {
   tabs.forEach(t => t.classList.toggle('active', t === tabEl));
   panels.forEach(p => p.classList.toggle('active', p.id === 'panel-' + target));
 
-  if (target !== 'picker' && isRolling) pauseRoll();
+  // 滚动中切换标签：正常抽出结果，不丢人
+  if (target !== 'picker' && isRolling) stopRoll();
 
-  if (target === 'score') {
-    setTimeout(() => {
-      if (typeof refreshGroupScoreboard === 'function') refreshGroupScoreboard();
-    }, 0);
+  if (target === 'score' && typeof refreshGroupScoreboard === 'function') {
+    refreshGroupScoreboard(true);
   }
 }
 
@@ -2202,7 +2685,7 @@ function setDisplayText(name) {
 
   const g = nameToGroup[name];
   if (g) {
-    const hue = GROUP_HUES[g] || 217;
+    const hue = hueOfGroup(g);
     displayGroupEl.textContent = g;
     displayGroupEl.style.background = `hsl(${hue} 68% 48%)`;
     displayGroupEl.classList.add('show');
@@ -2212,7 +2695,19 @@ function setDisplayText(name) {
   }
 }
 
+function showWaiting(text) {
+  displayEl.classList.remove('rolling', 'pop');
+  displayEl.classList.add('waiting');
+  displayNameEl.textContent = text || '等待点名...';
+  displayGroupEl.textContent = '';
+  displayGroupEl.classList.remove('show');
+}
+
 function updateStatus() {
+  if (!students.length) {
+    statusEl.textContent = '名单为空，请到「操行分」中添加学生';
+    return;
+  }
   statusEl.textContent = calledCount === 0
     ? `共 ${students.length} 名学生 · 按空格键也可开始 / 停止`
     : `已点名 ${calledCount} 人 · 本轮剩余 ${remaining.length} 人`;
@@ -2228,7 +2723,7 @@ function renderCalledList() {
 
   calledNamesEl.innerHTML = calledNames.map(n => {
     const g = nameToGroup[n] || '';
-    const hue = GROUP_HUES[g] || 217;
+    const hue = hueOfGroup(g);
     const bg  = `hsl(${hue} 82% 94%)`;
     const fg  = `hsl(${hue} 55% 34%)`;
     const bd  = `hsl(${hue} 70% 82%)`;
@@ -2238,6 +2733,10 @@ function renderCalledList() {
 
 function startRoll() {
   if (isRolling) return;
+  if (!students.length) {
+    showToast('名单为空，请先添加学生');
+    return;
+  }
   isRolling = true;
 
   displayEl.classList.remove('waiting', 'pop');
@@ -2268,6 +2767,17 @@ function stopRoll() {
     calledNames = [];
   }
 
+  startBtn.disabled = false;
+  stopBtn.disabled  = true;
+  resetBtn.disabled = false;
+
+  if (!remaining.length) {
+    showWaiting('暂无学生');
+    updateStatus();
+    renderCalledList();
+    return;
+  }
+
   const idx  = Math.floor(Math.random() * remaining.length);
   const name = remaining.splice(idx, 1)[0];
   calledCount++;
@@ -2280,28 +2790,38 @@ function stopRoll() {
 
   updateStatus();
   renderCalledList();
-
-  startBtn.disabled = false;
-  stopBtn.disabled  = true;
-  resetBtn.disabled = false;
 }
 
-function pauseRoll() {
-  if (!isRolling) return;
+/* 名单变化时保持点名器的抽取池与展示一致 */
+function syncPickerRoster() {
+  const valid = new Set(students);
 
-  clearInterval(rollTimer);
-  rollTimer = null;
-  isRolling = false;
+  remaining = remaining.filter(n => valid.has(n));
+  students.forEach(n => {
+    if (!remaining.includes(n) && !calledNames.includes(n)) remaining.push(n);
+  });
 
-  displayEl.classList.remove('rolling');
-  setDisplayText(students[Math.floor(Math.random() * students.length)]);
+  calledNames = calledNames.filter(n => valid.has(n));
+  calledCount = calledNames.length;
 
-  void displayEl.offsetWidth;
-  displayEl.classList.add('pop');
+  if (isRolling && !students.length) {
+    clearInterval(rollTimer);
+    rollTimer = null;
+    isRolling = false;
+    startBtn.disabled = false;
+    stopBtn.disabled  = true;
+    resetBtn.disabled = false;
+  }
 
-  startBtn.disabled = false;
-  stopBtn.disabled  = true;
-  resetBtn.disabled = false;
+  if (!students.length) {
+    showWaiting('暂无学生');
+  } else if (!isRolling) {
+    const shown = displayNameEl.textContent;
+    if (!valid.has(shown) && !displayEl.classList.contains('waiting')) showWaiting();
+  }
+
+  updateStatus();
+  renderCalledList();
 }
 
 function resetAll() {
@@ -2327,12 +2847,13 @@ function resetAll() {
   renderCalledList();
 }
 
-startBtn.addEventListener('click', startRoll);
-stopBtn.addEventListener('click', stopRoll);
-resetBtn.addEventListener('click', resetAll);
+startBtn.addEventListener('click', () => { startBtn.blur(); startRoll(); });
+stopBtn.addEventListener('click',  () => { stopBtn.blur();  stopRoll();  });
+resetBtn.addEventListener('click', () => { resetBtn.blur(); resetAll();  });
 
 document.addEventListener('keydown', e => {
   if (e.code !== 'Space') return;
+  if (activeModal) return;
 
   const t = e.target;
   if (t && /^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName)) return;
@@ -2350,7 +2871,7 @@ renderCalledList();
 
 
 /* ==========================================================
-   二、班级分贝检测仪
+   二、教室音量监测（0–100 相对音量指数）
    ========================================================== */
 const meterValueEl  = document.getElementById('meterValue');
 const meterBarEl    = document.getElementById('meterBar');
@@ -2367,9 +2888,95 @@ const alarmThresholdVal = document.getElementById('alarmThresholdValue');
 const alarmToggleBtn    = document.getElementById('alarmToggle');
 const alarmIndicator    = document.getElementById('alarmIndicator');
 
-let audioCtx     = null;
-let analyser     = null;
-let mediaStream  = null;
+/* ---------- 共享麦克风引擎：音量监测与声音之树共用一路采集 ---------- */
+const mic = {
+  ctx: null,
+  analyser: null,
+  stream: null,
+  buf: null,
+  users: 0,
+  starting: null
+};
+
+async function micAcquire() {
+  if (mic.analyser) { mic.users++; return; }
+
+  if (!mic.starting) {
+    mic.starting = (async () => {
+      if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+        const err = new Error('unsupported');
+        err.name = 'NotSupportedError';
+        throw err;
+      }
+
+      const stream = await navigator.mediaDevices.getUserMedia({
+        audio: { echoCancellation: false, noiseSuppression: false, autoGainControl: false }
+      });
+
+      const Ctor = window.AudioContext || window.webkitAudioContext;
+      if (!Ctor) throw new Error('no-audio-context');
+
+      const ctx = new Ctor();
+      if (ctx.state === 'suspended') await ctx.resume();
+
+      const analyser = ctx.createAnalyser();
+      analyser.fftSize = 2048;
+      analyser.smoothingTimeConstant = 0.5;
+      ctx.createMediaStreamSource(stream).connect(analyser);
+
+      mic.ctx = ctx;
+      mic.analyser = analyser;
+      mic.stream = stream;
+      mic.buf = new Uint8Array(analyser.fftSize);
+    })();
+  }
+
+  try {
+    await mic.starting;
+    mic.users++;
+  } finally {
+    mic.starting = null;
+  }
+}
+
+function micRelease() {
+  mic.users = Math.max(0, mic.users - 1);
+  if (mic.users > 0) return;
+
+  if (mic.stream) mic.stream.getTracks().forEach(t => t.stop());
+  if (mic.ctx) { try { mic.ctx.close(); } catch (err) {} }
+
+  mic.ctx = null;
+  mic.analyser = null;
+  mic.stream = null;
+  mic.buf = null;
+}
+
+/* 读取当前音量（0-100 相对值） */
+function micLevel() {
+  const an = mic.analyser;
+  if (!an) return 0;
+  if (!mic.buf || mic.buf.length !== an.fftSize) mic.buf = new Uint8Array(an.fftSize);
+  an.getByteTimeDomainData(mic.buf);
+
+  let sum = 0;
+  for (let i = 0; i < mic.buf.length; i++) {
+    const v = (mic.buf[i] - 128) / 128;
+    sum += v * v;
+  }
+  const rms = Math.sqrt(sum / mic.buf.length);
+  const db = 20 * Math.log10(rms || 1e-8);
+  return Math.max(0, Math.min(100, (db + 70) * 100 / 70));
+}
+
+function showMicError(err) {
+  const name = err && err.name;
+  if (name === 'NotSupportedError') showToast('当前浏览器不支持麦克风采集');
+  else if (name === 'NotAllowedError' || name === 'SecurityError') showToast('麦克风权限被拒绝，请在浏览器设置中允许');
+  else if (name === 'NotFoundError' || name === 'OverconstrainedError') showToast('未检测到可用的麦克风');
+  else showToast('无法访问麦克风，请检查权限设置');
+}
+
 let rafId        = null;
 let meterRunning = false;
 
@@ -2450,7 +3057,7 @@ function stopAlarm() {
 }
 
 function updateThresholdUI() {
-  alarmThresholdVal.textContent = alarmThreshold + ' dB';
+  alarmThresholdVal.textContent = alarmThreshold + ' / 100';
   meterThresholdLineEl.style.left = alarmThreshold + '%';
 }
 
@@ -2464,27 +3071,6 @@ const LEVELS = [
 function getLevel(v) {
   for (const lv of LEVELS) if (v < lv.max) return lv;
   return LEVELS[LEVELS.length - 1];
-}
-
-let timeBuf = null;
-
-function measure() {
-  if (!analyser) return 0;
-  if (!timeBuf || timeBuf.length !== analyser.fftSize) {
-    timeBuf = new Uint8Array(analyser.fftSize);
-  }
-  analyser.getByteTimeDomainData(timeBuf);
-
-  let sum = 0;
-  for (let i = 0; i < timeBuf.length; i++) {
-    const v = (timeBuf[i] - 128) / 128;
-    sum += v * v;
-  }
-  const rms = Math.sqrt(sum / timeBuf.length);
-  const db = 20 * Math.log10(rms || 1e-8);
-  const mapped = (db + 70) * 100 / 70;
-
-  return Math.max(0, Math.min(100, mapped));
 }
 
 function renderMeter(val, peak) {
@@ -2507,7 +3093,7 @@ function renderMeter(val, peak) {
 function loop() {
   if (!meterRunning) return;
 
-  const val = measure();
+  const val = micLevel();
 
   const k = val > smoothDb ? 0.45 : 0.16;
   smoothDb += (val - smoothDb) * k;
@@ -2541,33 +3127,13 @@ function loop() {
 async function startMeter() {
   if (meterRunning) return;
 
-  if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
-    showToast('当前浏览器不支持麦克风采集');
-    return;
-  }
+  meterStartBtn.disabled = true;
 
   try {
-    mediaStream = await navigator.mediaDevices.getUserMedia({
-      audio: { echoCancellation: false, noiseSuppression: false, autoGainControl: false }
-    });
+    await micAcquire();
   } catch (err) {
-    showToast('无法访问麦克风，请检查权限设置');
-    return;
-  }
-
-  try {
-    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-    if (audioCtx.state === 'suspended') await audioCtx.resume();
-
-    analyser = audioCtx.createAnalyser();
-    analyser.fftSize = 2048;
-    analyser.smoothingTimeConstant = 0.5;
-
-    const source = audioCtx.createMediaStreamSource(mediaStream);
-    source.connect(analyser);
-  } catch (err) {
-    showToast('音频初始化失败');
-    stopMeter();
+    showMicError(err);
+    meterStartBtn.disabled = false;
     return;
   }
 
@@ -2589,12 +3155,13 @@ async function startMeter() {
   meterStopBtn.disabled  = false;
 
   renderMeter(0, 0);
-  showToast('分贝检测已开启');
+  showToast('音量监测已开启');
 
   rafId = requestAnimationFrame(loop);
 }
 
 function stopMeter() {
+  const wasRunning = meterRunning;
   meterRunning = false;
 
   if (rafId) { cancelAnimationFrame(rafId); rafId = null; }
@@ -2602,18 +3169,7 @@ function stopMeter() {
   stopAlarm();
   alarmOverStart = 0;
 
-  if (mediaStream) {
-    mediaStream.getTracks().forEach(t => t.stop());
-    mediaStream = null;
-  }
-
-  if (audioCtx) {
-    audioCtx.close().catch(() => {});
-    audioCtx = null;
-  }
-
-  analyser = null;
-  timeBuf  = null;
+  if (wasRunning) micRelease();
 
   meterValueEl.textContent = '--';
   meterValueEl.style.color = '#0ea5e9';
@@ -2665,8 +3221,6 @@ updateThresholdUI();
 /* ==========================================================
    三、声音之树
    ========================================================== */
-const TREE_KEY = 'gy17-sound-tree-v1';
-
 const treeSvgEl        = document.getElementById('treeSvg');
 const treeStatusEl     = document.getElementById('treeStatus');
 const treeStageBadgeEl = document.getElementById('treeStageBadge');
@@ -2695,15 +3249,11 @@ function getTreeStage(growth) {
   return TREE_STAGES[TREE_STAGES.length - 1];
 }
 
-let treeAudioCtx     = null;
-let treeAnalyser     = null;
-let treeMediaStream  = null;
 let treeRafId        = null;
 let treeRunning      = false;
 let treeGrowth       = 0;
 let treeSmoothVol    = 0;
 let treeLastTime     = 0;
-let treeTimeBuf      = null;
 let treeLastSaveTime = 0;
 let lastRenderedGrowthKey = null;
 let lastStageIndex = -1;
@@ -2990,19 +3540,7 @@ function treeLoop(now) {
   const dt = Math.min(0.15, (now - treeLastTime) / 1000);
   treeLastTime = now;
 
-  if (!treeTimeBuf || treeTimeBuf.length !== treeAnalyser.fftSize) {
-    treeTimeBuf = new Uint8Array(treeAnalyser.fftSize);
-  }
-  treeAnalyser.getByteTimeDomainData(treeTimeBuf);
-
-  let sum = 0;
-  for (let i = 0; i < treeTimeBuf.length; i++) {
-    const v = (treeTimeBuf[i] - 128) / 128;
-    sum += v * v;
-  }
-  const rms = Math.sqrt(sum / treeTimeBuf.length);
-  const db = 20 * Math.log10(rms || 1e-8);
-  const mapped = Math.max(0, Math.min(100, (db + 70) * 100 / 70));
+  const mapped = micLevel();
 
   const k = mapped > treeSmoothVol ? 0.5 : 0.15;
   treeSmoothVol += (mapped - treeSmoothVol) * k;
@@ -3021,33 +3559,13 @@ function treeLoop(now) {
 async function startTreeMeter() {
   if (treeRunning) return;
 
-  if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
-    showToast('当前浏览器不支持麦克风采集');
-    return;
-  }
+  treeStartBtn.disabled = true;
 
   try {
-    treeMediaStream = await navigator.mediaDevices.getUserMedia({
-      audio: { echoCancellation: false, noiseSuppression: false, autoGainControl: false }
-    });
+    await micAcquire();
   } catch (err) {
-    showToast('无法访问麦克风，请检查权限设置');
-    return;
-  }
-
-  try {
-    treeAudioCtx = new (window.AudioContext || window.webkitAudioContext)();
-    if (treeAudioCtx.state === 'suspended') await treeAudioCtx.resume();
-
-    treeAnalyser = treeAudioCtx.createAnalyser();
-    treeAnalyser.fftSize = 2048;
-    treeAnalyser.smoothingTimeConstant = 0.5;
-
-    const source = treeAudioCtx.createMediaStreamSource(treeMediaStream);
-    source.connect(treeAnalyser);
-  } catch (err) {
-    showToast('音频初始化失败');
-    stopTreeMeter();
+    showMicError(err);
+    treeStartBtn.disabled = false;
     return;
   }
 
@@ -3067,22 +3585,13 @@ async function startTreeMeter() {
 }
 
 function stopTreeMeter() {
+  const wasRunning = treeRunning;
   treeRunning = false;
 
   if (treeRafId) { cancelAnimationFrame(treeRafId); treeRafId = null; }
 
-  if (treeMediaStream) {
-    treeMediaStream.getTracks().forEach(t => t.stop());
-    treeMediaStream = null;
-  }
+  if (wasRunning) micRelease();
 
-  if (treeAudioCtx) {
-    treeAudioCtx.close().catch(() => {});
-    treeAudioCtx = null;
-  }
-
-  treeAnalyser = null;
-  treeTimeBuf  = null;
   treeSmoothVol = 0;
 
   treeStatusEl.textContent = '未启动';
@@ -3094,8 +3603,8 @@ function stopTreeMeter() {
   saveTreeGrowth(true);
 }
 
-treeStartBtn.addEventListener('click', startTreeMeter);
-treeStopBtn.addEventListener('click', stopTreeMeter);
+treeStartBtn.addEventListener('click', () => { treeStartBtn.blur(); startTreeMeter(); });
+treeStopBtn.addEventListener('click',  () => { treeStopBtn.blur();  stopTreeMeter();  });
 
 treeResetBtn.addEventListener('click', () => {
   askConfirm('重置成长', '确定要把声音之树重置为种子吗？成长值将归零。', () => {
@@ -3117,8 +3626,6 @@ updateStageTrack(treeGrowth);
 /* ==========================================================
    四、小组积分表
    ========================================================== */
-const STORAGE_KEY = 'gy17-group-scores-v6';
-
 const scoreboardEl   = document.getElementById('scoreboard');
 const scoreSubEl     = document.getElementById('scoreSub');
 const stepsEl        = document.getElementById('steps');
@@ -3128,64 +3635,30 @@ const confirmBubble  = document.getElementById('confirmBubble');
 const confirmYes     = document.getElementById('confirmYes');
 const confirmNo      = document.getElementById('confirmNo');
 
-let groups = [];
+const renameModal  = document.getElementById('renameModal');
+const renameInput  = document.getElementById('renameInput');
+const renameOk     = document.getElementById('renameOk');
+const renameCancel = document.getElementById('renameCancel');
+
 let step   = 1;
 let groupSort = 'default';
-
-function loadGroups() {
-  try {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    if (raw) {
-      const data = JSON.parse(raw);
-      if (Array.isArray(data) && data.length) {
-        const orderIndex = {};
-        DEFAULT_GROUPS.forEach((g, i) => { orderIndex[g.name] = i; });
-        const mapped = data.map(g => ({
-          id:      g.id || uid('g'),
-          name:    String(g.name || '小组').slice(0, 12),
-          score:   Number.isFinite(Number(g.score)) ? Number(g.score) : 0,
-          members: Array.isArray(g.members) ? g.members : []
-        }));
-        const knownNames = mapped.map(g => g.name).filter(n => orderIndex[n] !== undefined);
-        if (knownNames.length === mapped.length) {
-          mapped.sort((a, b) => orderIndex[a.name] - orderIndex[b.name]);
-        }
-        return mapped;
-      }
-    }
-  } catch (err) {}
-
-  return DEFAULT_GROUPS.map(g => ({
-    id:      uid('g'),
-    name:    g.name,
-    score:   0,
-    members: g.members
-  }));
-}
-
-function saveGroups() {
-  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(groups)); } catch (err) {}
-}
+let renameTarget = null;   // 正在重命名的小组
 
 function updateSub() {
-  const total = groups.reduce((s, g) => s + g.score, 0);
-  scoreSubEl.textContent = `共 ${groups.length} 组 · 总分 ${total}`;
+  const total = groupMeta.reduce((s, g) => s + g.score, 0);
+  scoreSubEl.textContent = `共 ${groupMeta.length} 组 · 总分 ${total}`;
 }
 
 function renderRank() {
-  const max = groups.reduce((m, g) => Math.max(m, g.score), -Infinity);
+  const max = groupMeta.reduce((m, g) => Math.max(m, g.score), -Infinity);
   scoreboardEl.querySelectorAll('.group-card').forEach(el => {
-    const g = groups.find(x => x.id === el.dataset.id);
+    const g = groupMeta.find(x => x.name === el.dataset.group);
     el.classList.toggle('top', !!g && max > 0 && g.score === max);
   });
 }
 
-function buildMemberCell(name, conductMap) {
-  let score = conductMap[name];
-  if (score === undefined || score === null || !Number.isFinite(Number(score))) {
-    score = INIT_SCORE;
-  }
-
+function buildMemberCell(name) {
+  const score = getScore(name);
   const rank = getRank(score);
   const color = RANK_BADGE_COLORS[rank.name] || { bg: '#e9eff6', fg: '#475569' };
 
@@ -3201,61 +3674,43 @@ function buildMemberCell(name, conductMap) {
 }
 
 function buildGroupCard(g) {
-  const card = document.createElement('div');
-  card.className = 'group-card';
-  card.dataset.id = g.id;
+  const hue  = g.hue;
+  const members = rosterOfGroup(g.name);
+  const membersHtml = members.length
+    ? members.map(s => buildMemberCell(s.name)).join('')
+    : '<span class="gcm-empty">暂无学生</span>';
 
-  const hue = GROUP_HUES[g.name] || 217;
-  const conductMap = getConductScoreMap();
-
-  const membersHtml = g.members
-    .map(m => buildMemberCell(m, conductMap))
-    .join('');
-
-  card.innerHTML = `
-    <div class="gc-header" style="background: hsl(${hue} 92% 96%); border-bottom-color: hsl(${hue} 60% 82%);">
-      <span class="gc-name" title="双击可重命名">${escapeHtml(g.name)}</span>
-      <span class="gc-score" style="color: hsl(${hue} 72% 42%);">${g.score}</span>
-    </div>
-    <div class="gc-members">${membersHtml}</div>
-    <div class="gc-actions">
-      <button class="gc-btn minus" data-act="minus" title="减少 ${step} 分">−</button>
-      <button class="gc-btn plus"  data-act="plus"  title="增加 ${step} 分">+</button>
+  return `
+    <div class="group-card" data-group="${escapeHtml(g.name)}">
+      <div class="gc-header" style="background: hsl(${hue} 92% 96%); border-bottom-color: hsl(${hue} 60% 82%);">
+        <span class="gc-name" title="双击可重命名">${escapeHtml(g.name)}</span>
+        <span class="gc-score" style="color: hsl(${hue} 72% 42%);">${g.score}</span>
+      </div>
+      <div class="gc-members">${membersHtml}</div>
+      <div class="gc-actions">
+        <button class="gc-btn minus" data-act="minus" title="减少 ${step} 分">−</button>
+        <button class="gc-btn plus"  data-act="plus"  title="增加 ${step} 分">+</button>
+      </div>
     </div>
   `;
-  return card;
 }
 
 function renderGroups() {
-  scoreboardEl.innerHTML = '';
-
-  let list = [...groups];
-
-  if (groupSort === 'score') {
-    list.sort((a, b) => b.score - a.score);
-  }
-
-  list.forEach(g => {
-    scoreboardEl.appendChild(buildGroupCard(g));
-  });
-
+  let list = [...groupMeta];
+  if (groupSort === 'score') list.sort((a, b) => b.score - a.score);
+  scoreboardEl.innerHTML = list.map(g => buildGroupCard(g)).join('');
   updateSub();
   renderRank();
 }
 
-function refreshGroupScoreboard() {
-  if (typeof renderGroups !== 'function') return;
+/* force=true 立即渲染；否则仅在积分页可见时渲染，避免频繁重建 DOM */
+function refreshGroupScoreboard(force) {
+  const panel = document.getElementById('panel-score');
+  if (!force && (!panel || !panel.classList.contains('active'))) return;
 
-  const scorePanel = document.getElementById('panel-score');
-  if (!scorePanel || !scorePanel.classList.contains('active')) {
-    return;
-  }
-
-  try {
-    const st = scoreboardEl ? scoreboardEl.scrollTop : 0;
-    renderGroups();
-    if (scoreboardEl) scoreboardEl.scrollTop = st;
-  } catch (e) {}
+  const top = scoreboardEl.scrollTop;
+  renderGroups();
+  scoreboardEl.scrollTop = top;
 }
 
 function updateGroupUI(card, g, delta) {
@@ -3282,16 +3737,15 @@ scoreboardEl.addEventListener('click', e => {
   const card = e.target.closest('.group-card');
   if (!card) return;
 
-  const g = groups.find(x => x.id === card.dataset.id);
-  if (!g) return;
-
   const btn = e.target.closest('[data-act]');
   if (!btn) return;
 
+  const g = groupMeta.find(x => x.name === card.dataset.group);
+  if (!g) return;
+
   const delta = btn.dataset.act === 'plus' ? step : -step;
   g.score += delta;
-
-  saveGroups();
+  persistGroups();
 
   if (groupSort === 'score') {
     renderGroups();
@@ -3300,23 +3754,68 @@ scoreboardEl.addEventListener('click', e => {
   }
 });
 
+/* 小组重命名：改用自定义弹窗，风格与整体一致 */
+function openRenameModal(groupName) {
+  if (!groupName || !groupMeta.some(g => g.name === groupName)) return;
+  renameTarget = groupName;
+  renameInput.value = groupName;
+  openModal(renameModal, renameInput);
+  setTimeout(() => { try { renameInput.select(); } catch (err) {} }, 80);
+}
+
+function confirmRename() {
+  if (!renameTarget) return;
+
+  const next = renameInput.value.trim().slice(0, 12);
+  if (!next) {
+    showToast('小组名称不能为空');
+    renameInput.focus();
+    return;
+  }
+  if (next === renameTarget) {
+    closeModal(renameModal);
+    renameTarget = null;
+    return;
+  }
+  if (groupMeta.some(g => g.name === next)) {
+    showToast('已存在同名小组');
+    renameInput.focus();
+    return;
+  }
+
+  const oldName = renameTarget;
+  const g = groupMeta.find(x => x.name === oldName);
+  if (!g) {
+    closeModal(renameModal);
+    renameTarget = null;
+    return;
+  }
+
+  g.name = next;
+  roster.forEach(s => { if (s.group === oldName) s.group = next; });
+  persistAll();
+
+  closeModal(renameModal);
+  renameTarget = null;
+
+  afterRosterChange();
+  showToast(`已重命名为「${next}」`);
+}
+
+renameOk.addEventListener('click', confirmRename);
+renameCancel.addEventListener('click', () => { renameTarget = null; closeModal(renameModal); });
+renameInput.addEventListener('keydown', e => {
+  if (e.key === 'Enter') { e.preventDefault(); confirmRename(); }
+});
+renameModal.addEventListener('click', e => {
+  if (e.target === renameModal) { renameTarget = null; closeModal(renameModal); }
+});
+
 scoreboardEl.addEventListener('dblclick', e => {
   const nameEl = e.target.closest('.gc-name');
   if (!nameEl) return;
-
   const card = nameEl.closest('.group-card');
-  const g = groups.find(x => x.id === card.dataset.id);
-  if (!g) return;
-
-  const next = prompt('修改小组名称：', g.name);
-  if (next === null) return;
-
-  const trimmed = next.trim();
-  if (!trimmed) return;
-
-  g.name = trimmed.slice(0, 12);
-  nameEl.textContent = g.name;
-  saveGroups();
+  if (card) openRenameModal(card.dataset.group);
 });
 
 stepsEl.addEventListener('click', e => {
@@ -3359,8 +3858,8 @@ resetScoresBtn.addEventListener('click', e => {
 });
 
 confirmYes.addEventListener('click', () => {
-  groups.forEach(g => { g.score = 0; });
-  saveGroups();
+  groupMeta.forEach(g => { g.score = 0; });
+  persistGroups();
   renderGroups();
   confirmBubble.classList.remove('open');
   showToast('已全部清零');
@@ -3376,24 +3875,13 @@ document.addEventListener('click', e => {
   }
 });
 
-groups = loadGroups();
 renderGroups();
 
 
 /* ==========================================================
    五、个人操行分管理系统（一行两个组）
+   数据统一来自 roster / groupMeta / conductScores
    ========================================================== */
-const CONDUCT_KEY = CONDUCT_STORAGE_KEY;
-
-const SEATING_SEED = [
-  { name: '一组', members: GROUP_MEMBERS['一组'] },
-  { name: '二组', members: GROUP_MEMBERS['二组'] },
-  { name: '三组', members: GROUP_MEMBERS['三组'] },
-  { name: '四组', members: GROUP_MEMBERS['四组'] },
-  { name: '五组', members: GROUP_MEMBERS['五组'] },
-  { name: '六组', members: GROUP_MEMBERS['六组'] }
-];
-
 const seatingBoardEl  = document.getElementById('seatingBoard');
 const conductSubEl    = document.getElementById('conductSub');
 const rankLegendEl    = document.getElementById('rankLegend');
@@ -3407,7 +3895,6 @@ const studentGroupSelect = document.getElementById('studentGroupSelect');
 const inputOk            = document.getElementById('inputOk');
 const inputCancel        = document.getElementById('inputCancel');
 
-let conductStudents = [];
 let conductSort = 'seat';
 
 function renderLegend() {
@@ -3419,175 +3906,160 @@ function renderLegend() {
   }).join('');
 }
 
-function loadConduct() {
-  try {
-    const raw = localStorage.getItem(CONDUCT_KEY);
-    if (raw) {
-      const data = JSON.parse(raw);
-      if (Array.isArray(data) && data.length) {
-        return data.map(s => ({
-          id:    s.id || uid('c'),
-          name:  String(s.name || '学生').slice(0, 10),
-          score: Number.isFinite(Number(s.score)) ? Number(s.score) : INIT_SCORE,
-          group: String(s.group || '一组')
-        }));
-      }
-    }
-  } catch (err) {}
-
-  const arr = [];
-  SEATING_SEED.forEach(g => {
-    g.members.forEach(name => {
-      arr.push({ id: uid('c'), name, score: INIT_SCORE, group: g.name });
-    });
-  });
-  return arr;
-}
-
-function saveConduct() {
-  try { localStorage.setItem(CONDUCT_KEY, JSON.stringify(conductStudents)); } catch (err) {}
-  refreshGroupScoreboard();
-}
-
 function updateConductSub() {
-  const n = conductStudents.length;
+  const n = roster.length;
   if (!n) { conductSubEl.textContent = '暂无学生'; return; }
-  const total = conductStudents.reduce((s, x) => s + x.score, 0);
-  const avg = (total / n).toFixed(1);
-  const kingCount = conductStudents.filter(s => s.score >= 125).length;
-  conductSubEl.textContent = `${n} 人 · 平均 ${avg} 分 · 王者 ${kingCount} 人`;
+  let total = 0;
+  let king = 0;
+  roster.forEach(s => {
+    const sc = getScore(s.name);
+    total += sc;
+    if (sc >= 125) king++;
+  });
+  conductSubEl.textContent = `${n} 人 · 平均 ${(total / n).toFixed(1)} 分 · 王者 ${king} 人`;
 }
 
-function buildSeatHtml(s, groupName, depth, ratio) {
-  const rank = getRank(s.score);
-  const hue  = GROUP_HUES[groupName] || 217;
+function rankIndex(rank) {
+  const i = RANKS.indexOf(rank);
+  return i < 0 ? 0 : i;
+}
 
-  const w       = Math.round(58 + ratio * 36);
-  const h       = Math.round(78 + ratio * 40);
-  const padV    = Math.round(3 + ratio * 2);
-  const padH    = Math.round(2 + ratio * 2);
-  const nameFs  = (9.5 + ratio * 3.5).toFixed(1);
-  const scoreFs = (15 + ratio * 9).toFixed(1);
-  const rankFs  = (8.5 + ratio * 2).toFixed(1);
-  const rankPadV= Math.round(1 + ratio);
-  const rankPadH= Math.round(5 + ratio * 4);
-  const btnW    = Math.round(20 + ratio * 6);
-  const btnH    = Math.round(15 + ratio * 3);
-  const btnFs   = (11 + ratio * 2).toFixed(1);
-
-  const sizeStyle  = `width:${w}px;height:${h}px;padding:${padV}px ${padH}px ${padV}px;`;
-  const nameStyle  = `font-size:${nameFs}px;`;
-  const scoreStyle = `font-size:${scoreFs}px;`;
-  const rankStyle  = `font-size:${rankFs}px;padding:${rankPadV}px ${rankPadH}px;`;
-  const btnStyle   = `flex:0 0 ${btnW}px;height:${btnH}px;font-size:${btnFs}px;`;
-
-  if (conductSort === 'score') {
-    return `
-      <div class="seat custom-color" data-id="${s.id}" style="--hue: ${hue}; --depth: ${depth.toFixed(3)}; ${sizeStyle}">
-        <button class="seat-del" data-act="del" title="删除学生">×</button>
-        <div class="seat-name" style="${nameStyle}" title="${escapeHtml(s.name)} · ${rank.name}">${escapeHtml(s.name)}</div>
-        <div class="seat-score" style="${scoreStyle}">${s.score}</div>
-        <div class="seat-rank" style="${rankStyle}">${rank.name}</div>
-        <div class="seat-btns">
-          <button class="seat-btn minus" data-act="minus" style="${btnStyle}" title="减 1 分">−</button>
-          <button class="seat-btn plus"  data-act="plus"  style="${btnStyle}" title="加 1 分">+</button>
-        </div>
-      </div>
-    `;
-  }
+function buildSeatHtml(s) {
+  const score = getScore(s.name);
+  const rank  = getRank(score);
+  const size  = rankIndex(rank);
+  const hue   = hueOfGroup(s.group);
+  const cls   = conductSort === 'score' ? 'seat custom-color' : 'seat ' + rank.cls;
+  const style = conductSort === 'score' ? ` style="--hue:${hue}"` : '';
 
   return `
-    <div class="seat ${rank.cls}" data-id="${s.id}" style="${sizeStyle}">
+    <div class="${cls} size-${size}" data-key="${escapeHtml(s.name)}"${style}>
       <button class="seat-del" data-act="del" title="删除学生">×</button>
-      <div class="seat-name" style="${nameStyle}" title="${escapeHtml(s.name)} · ${rank.name}">${escapeHtml(s.name)}</div>
-      <div class="seat-score" style="${scoreStyle}">${s.score}</div>
-      <div class="seat-rank" style="${rankStyle}">${rank.name}</div>
+      <div class="seat-name" title="${escapeHtml(s.name)} · ${rank.name}">${escapeHtml(s.name)}</div>
+      <div class="seat-score">${score}</div>
+      <div class="seat-rank">${rank.name}</div>
       <div class="seat-btns">
-        <button class="seat-btn minus" data-act="minus" style="${btnStyle}" title="减 1 分">−</button>
-        <button class="seat-btn plus"  data-act="plus"  style="${btnStyle}" title="加 1 分">+</button>
+        <button class="seat-btn minus" data-act="minus" title="减 1 分">−</button>
+        <button class="seat-btn plus"  data-act="plus"  title="加 1 分">+</button>
       </div>
     </div>
   `;
 }
 
-function renderSeating() {
-  const groupMap = {};
-  SEATING_SEED.forEach(g => { groupMap[g.name] = []; });
+function studentsInGroup(groupName, sorted) {
+  const list = roster.filter(s => s.group === groupName);
+  if (sorted) {
+    list.sort((a, b) =>
+      getScore(b.name) - getScore(a.name) || a.name.localeCompare(b.name, 'zh-Hans-CN'));
+  }
+  return list;
+}
 
-  conductStudents.forEach(s => {
-    const g = groupMap[s.group];
-    if (g) g.push(s);
-    else {
-      groupMap['一组'].push(s);
-      s.group = '一组';
-    }
+function buildMvpHtml(groupName) {
+  const list = rosterOfGroup(groupName);
+  if (!list.length) return '';
+
+  let mvp  = list[0];
+  let best = getScore(mvp.name);
+  list.forEach(s => {
+    const sc = getScore(s.name);
+    if (sc > best) { best = sc; mvp = s; }
   });
 
-  function buildGroupBlock(groupName) {
-    let list = groupMap[groupName] || [];
-    const hue = GROUP_HUES[groupName] || 217;
+  const rank = getRank(best);
 
-    if (conductSort === 'score') {
-      list = [...list].sort((a, b) => b.score - a.score || a.name.localeCompare(b.name, 'zh-Hans-CN'));
-    }
-
-    const scores = list.map(x => x.score);
-    const maxS = scores.length ? Math.max(...scores) : INIT_SCORE;
-    const minS = scores.length ? Math.min(...scores) : INIT_SCORE;
-    const range = maxS - minS;
-
-    let mvpStudent = null;
-    if (list.length) {
-      mvpStudent = list.reduce((best, s) =>
-        (best === null || s.score > best.score) ? s : best, null);
-    }
-
-    const cards = list.map(s => {
-      const ratio = range === 0 ? 0.5 : (s.score - minS) / range;
-      const depth = 0.12 + ratio * 0.88;
-      return buildSeatHtml(s, groupName, depth, ratio);
-    }).join('');
-
-    let mvpHtml = '';
-    if (mvpStudent) {
-      const rank = getRank(mvpStudent.score);
-      mvpHtml = `
-        <div class="group-mvp" style="--hue: ${hue};">
-          <div class="mvp-left">
-            <div class="mvp-tag">👑 组内最高分</div>
-            <div class="mvp-name" title="${escapeHtml(mvpStudent.name)}">${escapeHtml(mvpStudent.name)}</div>
-          </div>
-          <div class="mvp-right">
-            <span class="mvp-score">${mvpStudent.score}</span>
-            <span class="mvp-rank">${rank.name}</span>
-          </div>
-        </div>
-      `;
-    }
-
-    return `
-      <div class="seat-group" data-group="${escapeHtml(groupName)}">
-        <div class="sg-label" style="background: linear-gradient(135deg, hsl(${hue} 68% 56%), hsl(${hue} 72% 44%))">${escapeHtml(groupName)}</div>
-        ${mvpHtml}
-        <div class="sg-grid">${cards}</div>
+  return `
+    <div class="group-mvp" style="--hue:${hueOfGroup(groupName)}">
+      <div class="mvp-left">
+        <div class="mvp-tag">👑 组内最高分</div>
+        <div class="mvp-name" title="${escapeHtml(mvp.name)}">${escapeHtml(mvp.name)}</div>
       </div>
-    `;
-  }
+      <div class="mvp-right">
+        <span class="mvp-score">${best}</span>
+        <span class="mvp-rank">${rank.name}</span>
+      </div>
+    </div>
+  `;
+}
 
-  seatingBoardEl.innerHTML = [
-    buildGroupBlock('一组'),
-    buildGroupBlock('二组'),
-    buildGroupBlock('三组'),
-    buildGroupBlock('四组'),
-    buildGroupBlock('五组'),
-    buildGroupBlock('六组')
-  ].join('');
+function buildGroupBlock(groupName) {
+  const hue  = hueOfGroup(groupName);
+  const list = studentsInGroup(groupName, conductSort === 'score');
+
+  const cards = list.length
+    ? list.map(buildSeatHtml).join('')
+    : `<div class="sg-empty">该组暂无学生</div>`;
+
+  return `
+    <div class="seat-group" data-group="${escapeHtml(groupName)}">
+      <div class="sg-label" style="background: linear-gradient(135deg, hsl(${hue} 68% 56%), hsl(${hue} 72% 44%))">${escapeHtml(groupName)}</div>
+      <div class="sg-mvp-slot">${buildMvpHtml(groupName)}</div>
+      <div class="sg-grid">${cards}</div>
+    </div>
+  `;
+}
+
+function renderSeating() {
+  if (!groupMeta.length) {
+    seatingBoardEl.innerHTML = '<div class="empty-board">暂无小组，请先在「小组积分」页添加小组</div>';
+    updateConductSub();
+    return;
+  }
+  seatingBoardEl.innerHTML = groupMeta.map(g => buildGroupBlock(g.name)).join('');
+  updateConductSub();
+}
+
+function groupBlockEl(groupName) {
+  const blocks = seatingBoardEl.querySelectorAll('.seat-group');
+  for (const el of blocks) {
+    if (el.dataset.group === groupName) return el;
+  }
+  return null;
+}
+
+function findSeat(name) {
+  const cards = seatingBoardEl.querySelectorAll('.seat');
+  for (const el of cards) {
+    if (el.dataset.key === name) return el;
+  }
+  return null;
+}
+
+/* 增量更新单个座位卡（避免整块重建） */
+function updateSeatRow(name) {
+  const card = findSeat(name);
+  if (!card) return;
+
+  const score = getScore(name);
+  const rank  = getRank(score);
+  const group = nameToGroup[name] || '';
+  const size  = rankIndex(rank);
+
+  card.className = conductSort === 'score'
+    ? `seat custom-color size-${size}`
+    : `seat ${rank.cls} size-${size}`;
+
+  if (conductSort === 'score') card.style.setProperty('--hue', String(hueOfGroup(group)));
+  else card.style.removeProperty('--hue');
+
+  const scoreEl = card.querySelector('.seat-score');
+  if (scoreEl) scoreEl.textContent = score;
+  const rankEl = card.querySelector('.seat-rank');
+  if (rankEl) rankEl.textContent = rank.name;
+  const nameEl = card.querySelector('.seat-name');
+  if (nameEl) nameEl.title = `${name} · ${rank.name}`;
+
+  const block = groupBlockEl(group);
+  if (block) {
+    const slot = block.querySelector('.sg-mvp-slot');
+    if (slot) slot.innerHTML = buildMvpHtml(group);
+  }
 
   updateConductSub();
 }
 
-function animateSeat(id, delta) {
-  const card = seatingBoardEl.querySelector(`.seat[data-id="${id}"]`);
+function animateSeat(name, delta) {
+  const card = findSeat(name);
   if (!card) return;
 
   const scoreEl = card.querySelector('.seat-score');
@@ -3611,7 +4083,8 @@ seatingBoardEl.addEventListener('click', e => {
   const card = e.target.closest('.seat');
   if (!card) return;
 
-  const s = conductStudents.find(x => x.id === card.dataset.id);
+  const name = card.dataset.key;
+  const s = roster.find(x => x.name === name);
   if (!s) return;
 
   const btn = e.target.closest('[data-act]');
@@ -3620,21 +4093,24 @@ seatingBoardEl.addEventListener('click', e => {
   const act = btn.dataset.act;
 
   if (act === 'del') {
-    askConfirm('删除学生', `确定要删除「${s.name}」吗？`, () => {
-      conductStudents = conductStudents.filter(x => x.id !== s.id);
-      saveConduct();
-      renderSeating();
-      showToast('已删除 ' + s.name);
+    askConfirm('删除学生', `确定要删除「${name}」吗？`, () => {
+      roster = roster.filter(x => x.name !== name);
+      delete conductScores[name];
+      persistAll();
+      afterRosterChange();
+      showToast('已删除 ' + name);
     });
     return;
   }
 
   const delta = act === 'plus' ? 1 : -1;
-  s.score += delta;
-  saveConduct();
+  conductScores[name] = getScore(name) + delta;
+  persistConduct();
 
-  renderSeating();
-  animateSeat(s.id, delta);
+  if (conductSort === 'score') renderSeating();
+  else updateSeatRow(name);
+
+  animateSeat(name, delta);
 });
 
 sortConductBtn.addEventListener('click', () => {
@@ -3655,15 +4131,20 @@ sortConductBtn.addEventListener('click', () => {
   renderSeating();
 });
 
+function fillGroupSelect() {
+  studentGroupSelect.innerHTML = groupMeta
+    .map(g => `<option value="${escapeHtml(g.name)}">${escapeHtml(g.name)}</option>`)
+    .join('');
+}
+
 addStudentBtn.addEventListener('click', () => {
+  fillGroupSelect();
   studentNameInput.value = '';
-  studentGroupSelect.value = '一组';
-  inputModal.classList.add('open');
-  setTimeout(() => studentNameInput.focus(), 60);
+  openModal(inputModal, studentNameInput);
 });
 
 function confirmAddStudent() {
-  const name = studentNameInput.value.trim();
+  const name  = studentNameInput.value.trim().slice(0, 10);
   const group = studentGroupSelect.value;
 
   if (!name) {
@@ -3672,49 +4153,566 @@ function confirmAddStudent() {
     return;
   }
 
-  if (conductStudents.some(s => s.name === name)) {
+  if (roster.some(s => s.name === name)) {
     showToast('该姓名已存在');
     studentNameInput.focus();
     return;
   }
 
-  conductStudents.push({
-    id: uid('c'),
-    name: name.slice(0, 10),
-    score: INIT_SCORE,
-    group
-  });
+  roster.push({ name, group });
+  conductScores[name] = INIT_SCORE;
 
-  saveConduct();
-  renderSeating();
+  persistAll();
+  afterRosterChange();
+  closeModal(inputModal);
 
-  inputModal.classList.remove('open');
   showToast(`已添加 ${name} 到 ${group}`);
 }
 
 inputOk.addEventListener('click', confirmAddStudent);
-inputCancel.addEventListener('click', () => inputModal.classList.remove('open'));
+inputCancel.addEventListener('click', () => closeModal(inputModal));
 studentNameInput.addEventListener('keydown', e => {
-  if (e.key === 'Enter') confirmAddStudent();
+  if (e.key === 'Enter') { e.preventDefault(); confirmAddStudent(); }
 });
 inputModal.addEventListener('click', e => {
-  if (e.target === inputModal) inputModal.classList.remove('open');
+  if (e.target === inputModal) closeModal(inputModal);
 });
 
 resetConductBtn.addEventListener('click', () => {
-  if (!conductStudents.length) return;
-  askConfirm('重置操行分', `确定要把全部 ${conductStudents.length} 名学生的操行分重置为 100 分吗？`, () => {
-    conductStudents.forEach(s => { s.score = INIT_SCORE; });
-    saveConduct();
+  if (!roster.length) return;
+  askConfirm('重置操行分', `确定要把全部 ${roster.length} 名学生的操行分重置为 100 分吗？`, () => {
+    roster.forEach(s => { conductScores[s.name] = INIT_SCORE; });
+    persistConduct();
     renderSeating();
     showToast('已重置为 100 分');
   });
 });
 
 renderLegend();
-conductStudents = loadConduct();
-saveConduct();
 renderSeating();
+
+
+/* ==========================================================
+   六、导入座位表（Excel / CSV）
+   纯前端解析 .xlsx（zip + XML），不依赖任何外部库
+   ========================================================== */
+const importModal       = document.getElementById('importModal');
+const importFileInput   = document.getElementById('importFile');
+const importSummaryEl   = document.getElementById('importSummary');
+const importPreviewEl   = document.getElementById('importPreview');
+const importCancelBtn   = document.getElementById('importCancel');
+const importAppendBtn   = document.getElementById('importAppendBtn');
+const importReplaceBtn  = document.getElementById('importReplaceBtn');
+const importSeatBtn     = document.getElementById('importSeatBtn');
+const importTemplateBtn = document.getElementById('importTemplateBtn');
+
+let importParsed = [];
+
+/* ---------- ZIP 读取（仅用于 .xlsx） ---------- */
+function zipU16(u8, p) { return u8[p] | (u8[p + 1] << 8); }
+function zipU32(u8, p) {
+  return (u8[p] | (u8[p + 1] << 8) | (u8[p + 2] << 16) | (u8[p + 3] << 24)) >>> 0;
+}
+
+function zipEntries(u8) {
+  let eocd = -1;
+  const stop = Math.max(0, u8.length - 66000);
+  for (let i = u8.length - 22; i >= stop; i--) {
+    if (u8[i] === 0x50 && u8[i + 1] === 0x4b && u8[i + 2] === 0x05 && u8[i + 3] === 0x06) {
+      eocd = i;
+      break;
+    }
+  }
+  if (eocd < 0) throw new Error('这个文件不是有效的 Excel（.xlsx）文件');
+
+  const count = zipU16(u8, eocd + 10);
+  let p = zipU32(u8, eocd + 16);
+  const entries = {};
+
+  for (let i = 0; i < count; i++) {
+    if (zipU32(u8, p) !== 0x02014b50) break;
+    const method   = zipU16(u8, p + 10);
+    const csize    = zipU32(u8, p + 20);
+    const nameLen  = zipU16(u8, p + 28);
+    const extraLen = zipU16(u8, p + 30);
+    const commentLen = zipU16(u8, p + 32);
+    const localOff = zipU32(u8, p + 42);
+
+    let name = '';
+    for (let k = 0; k < nameLen; k++) name += String.fromCharCode(u8[p + 46 + k]);
+    entries[name] = { method, csize, localOff };
+
+    p += 46 + nameLen + extraLen + commentLen;
+  }
+  return entries;
+}
+
+async function zipEntryBytes(u8, entry) {
+  const p = entry.localOff;
+  if (zipU32(u8, p) !== 0x04034b50) throw new Error('Excel 文件结构损坏');
+
+  const nameLen  = zipU16(u8, p + 26);
+  const extraLen = zipU16(u8, p + 28);
+  const start = p + 30 + nameLen + extraLen;
+  const data = u8.subarray(start, start + entry.csize);
+
+  if (entry.method === 0) return data;
+  if (entry.method !== 8) throw new Error('不支持的 Excel 压缩格式');
+
+  if (typeof DecompressionStream === 'undefined') {
+    throw new Error('当前浏览器无法解压 .xlsx，请把表格另存为 CSV 后再导入');
+  }
+
+  const ds = new DecompressionStream('deflate-raw');
+  const stream = new Blob([data]).stream().pipeThrough(ds);
+  const out = new Uint8Array(await new Response(stream).arrayBuffer());
+  return out;
+}
+
+async function zipEntryText(u8, entry) {
+  return new TextDecoder('utf-8').decode(await zipEntryBytes(u8, entry));
+}
+
+function xmlDoc(text) {
+  return new DOMParser().parseFromString(text, 'application/xml');
+}
+
+/* 在带命名空间的 XML 中按本地名取标签（querySelectorAll 对默认命名空间不可靠） */
+function xmlTags(node, name) {
+  return Array.from(node.getElementsByTagNameNS('*', name));
+}
+
+function parseSharedStrings(xml) {
+  const doc = xmlDoc(xml);
+  const out = [];
+  xmlTags(doc, 'si').forEach(si => {
+    let s = '';
+    xmlTags(si, 't').forEach(t => { s += t.textContent; });
+    out.push(s);
+  });
+  return out;
+}
+
+function colIndex(ref) {
+  const m = /^([A-Z]+)/.exec(ref || '');
+  if (!m) return 0;
+  let n = 0;
+  for (const ch of m[1]) n = n * 26 + (ch.charCodeAt(0) - 64);
+  return n - 1;
+}
+
+function parseSheetRows(xml, shared) {
+  const doc = xmlDoc(xml);
+  const rows = [];
+
+  xmlTags(doc, 'row').forEach(rowEl => {
+    const arr = [];
+
+    xmlTags(rowEl, 'c').forEach(cEl => {
+      const col = colIndex(cEl.getAttribute('r') || '');
+      let val = '';
+
+      if (cEl.getAttribute('t') === 's') {
+        const v = xmlTags(cEl, 'v')[0];
+        /* 共享字符串索引从 0 开始 */
+        if (v) val = shared[Number(v.textContent)] || '';
+      } else {
+        const is = xmlTags(cEl, 'is')[0];
+        if (is) {
+          xmlTags(is, 't').forEach(t => { val += t.textContent; });
+        } else {
+          const v = xmlTags(cEl, 'v')[0];
+          if (v) val = v.textContent;
+        }
+      }
+
+      arr[col] = String(val).trim();
+    });
+
+    const r = Number(rowEl.getAttribute('r')) - 1;
+    if (Number.isFinite(r) && r >= 0) rows[r] = arr;
+    else rows.push(arr);
+  });
+
+  return rows.map(r => r || []);
+}
+
+async function readXlsxFile(file) {
+  const u8 = new Uint8Array(await file.arrayBuffer());
+  const entries = zipEntries(u8);
+
+  const shared = entries['xl/sharedStrings.xml']
+    ? parseSharedStrings(await zipEntryText(u8, entries['xl/sharedStrings.xml']))
+    : [];
+
+  const sheetName = Object.keys(entries)
+    .filter(n => /^xl\/worksheets\/sheet\d+\.xml$/.test(n))
+    .sort((a, b) => a.localeCompare(b, 'en', { numeric: true }))[0];
+  if (!sheetName) throw new Error('Excel 中没有找到工作表');
+
+  return parseSheetRows(await zipEntryText(u8, entries[sheetName]), shared);
+}
+
+/* ---------- CSV / 文本读取 ---------- */
+function parseDelimited(text) {
+  const lines = text.replace(/\r\n?/g, '\n').split('\n');
+
+  const sample = lines.filter(l => l.trim()).slice(0, 6);
+  const counts = { ',': 0, '\t': 0, ';': 0 };
+  sample.forEach(l => {
+    counts[',']  += l.split(',').length - 1;
+    counts['\t'] += l.split('\t').length - 1;
+    counts[';']  += l.split(';').length - 1;
+  });
+  const sep = Object.keys(counts).reduce((a, b) => (counts[b] > counts[a] ? b : a), ',');
+
+  return lines.map(line => {
+    const cells = [];
+    let cur = '';
+    let quoted = false;
+
+    for (let i = 0; i < line.length; i++) {
+      const ch = line[i];
+      if (quoted) {
+        if (ch === '"') {
+          if (line[i + 1] === '"') { cur += '"'; i++; }
+          else quoted = false;
+        } else {
+          cur += ch;
+        }
+      } else if (ch === '"') {
+        quoted = true;
+      } else if (ch === sep) {
+        cells.push(cur);
+        cur = '';
+      } else {
+        cur += ch;
+      }
+    }
+    cells.push(cur);
+    return cells;
+  });
+}
+
+async function readTableFile(file) {
+  const buf = await file.arrayBuffer();
+  let text = new TextDecoder('utf-8').decode(buf);
+  if (text.includes('\uFFFD')) {
+    try { text = new TextDecoder('gbk').decode(buf); } catch (err) {}
+  }
+  return parseDelimited(text.replace(/^\uFEFF/, ''));
+}
+
+/* ---------- 把表格行转换成学生名单 ---------- */
+const GROUP_LABEL_RE = /^第?[一二三四五六七八九十0-9]+组$/;
+const HEADER_WORDS   = /^(姓名|学生|学生姓名|名字|小组|组别|组名|小组名|序号|编号)$/;
+
+function cleanName(raw) {
+  return String(raw)
+    .replace(/[\s\u3000]+/g, '')
+    .replace(/[（(].*$/g, '')
+    .replace(/[,，;；:：|·•]+$/g, '')
+    .slice(0, 10);
+}
+
+function normalizeGroupName(raw) {
+  let s = String(raw).trim().replace(/[\s\u3000]+/g, '').replace(/^第/, '');
+  const m = /^([0-9]+)组$/.exec(s);
+  if (m) {
+    const cn = ['零', '一', '二', '三', '四', '五', '六', '七', '八', '九'];
+    const n = Number(m[1]);
+    if (n > 0 && n < 10) return cn[n] + '组';
+  }
+  return s.slice(0, 12);
+}
+
+/* 无表头时，若第二列大多是「X组」，判定为姓名 + 小组两列结构 */
+function detectGroupColumn(rows) {
+  let hits = 0;
+  let col = -1;
+
+  rows.forEach(cells => {
+    const vals = (cells || []).map(v => String(v == null ? '' : v).trim());
+    const nonEmpty = vals.map((v, i) => ({ v, i })).filter(o => o.v);
+    if (nonEmpty.length < 2) return;
+
+    const second = nonEmpty[1];
+    if (second.v.endsWith('组') || GROUP_LABEL_RE.test(second.v)) {
+      hits++;
+      if (col < 0) col = second.i;
+    }
+  });
+
+  return hits >= 2 ? col : -1;
+}
+
+function rowsToStudents(rows) {
+  const out = [];
+
+  let nameCol   = 0;
+  let groupCol  = detectGroupColumn(rows);
+  let currentGroup = '';
+  let headerDone = false;
+
+  rows.forEach(cells => {
+    const vals = (cells || []).map(v => String(v == null ? '' : v).trim());
+    const nonEmpty = vals.map((v, i) => ({ v, i })).filter(o => o.v);
+    if (!nonEmpty.length) return;
+
+    if (!headerDone) {
+      const nameHit = nonEmpty.find(o => /^(姓名|学生|学生姓名|名字)$/.test(o.v));
+      if (nameHit) {
+        nameCol  = nameHit.i;
+        headerDone = true;
+        const groupHit = nonEmpty.find(o => /^(小组|组别|组名|小组名)$/.test(o.v));
+        groupCol = groupHit ? groupHit.i : -1;
+        return;
+      }
+      if (nonEmpty.length === 1 && /^(座位表|座位名单|名单|班级座位表)$/.test(nonEmpty[0].v)) {
+        headerDone = true;
+        return;
+      }
+    }
+
+    /* 单独一格的「一组」这类分组标题行 */
+    if (nonEmpty.length === 1 && GROUP_LABEL_RE.test(nonEmpty[0].v)) {
+      currentGroup = normalizeGroupName(nonEmpty[0].v) || currentGroup;
+      return;
+    }
+
+    if (groupCol >= 0) {
+      const name = cleanName(vals[nameCol] || '');
+      const g = vals[groupCol] || '';
+      if (g) currentGroup = normalizeGroupName(g);
+      if (!name || HEADER_WORDS.test(name)) return;
+      out.push({ name, group: currentGroup || '一组' });
+      return;
+    }
+
+    /* 无小组列：同一行每个非空单元格都当作一个座位 */
+    nonEmpty.forEach(o => {
+      const name = cleanName(o.v);
+      if (!name || HEADER_WORDS.test(name)) return;
+      if (/^\d+$/.test(name)) return;
+      out.push({ name, group: currentGroup || '一组' });
+    });
+  });
+
+  return out;
+}
+
+function collectParsed(raw) {
+  const seen = new Set();
+  const list = [];
+  let dup = 0;
+  let invalid = 0;
+
+  raw.forEach(s => {
+    const name = s && s.name;
+    if (!name) { invalid++; return; }
+    if (seen.has(name)) { dup++; return; }
+    seen.add(name);
+    list.push({ name, group: s.group || '一组' });
+  });
+
+  const groups = [];
+  list.forEach(s => {
+    let g = groups.find(x => x.name === s.group);
+    if (!g) { g = { name: s.group, list: [] }; groups.push(g); }
+    g.list.push(s.name);
+  });
+
+  return { list, groups, dup, invalid };
+}
+
+async function readSeatingFile(file) {
+  const name = (file.name || '').toLowerCase();
+  return /\.xlsx$/.test(name) ? readXlsxFile(file) : readTableFile(file);
+}
+
+/* ---------- 弹窗交互 ---------- */
+function renderImportPreview(data) {
+  importParsed = data.list;
+
+  if (!data.list.length) {
+    importSummaryEl.textContent = '没有识别到学生姓名，请检查文件内容或改用模板格式';
+    importSummaryEl.classList.add('error');
+    importPreviewEl.classList.remove('show');
+    importPreviewEl.innerHTML = '';
+    importAppendBtn.disabled = true;
+    importReplaceBtn.disabled = true;
+    return;
+  }
+
+  const extra = [];
+  if (data.dup) extra.push(`跳过重复 ${data.dup} 人`);
+  if (data.invalid) extra.push(`跳过无效 ${data.invalid} 行`);
+
+  importSummaryEl.classList.remove('error');
+  importSummaryEl.textContent = `识别到 ${data.list.length} 名学生 · ${data.groups.length} 个小组`
+    + (extra.length ? `（${extra.join('，')}）` : '');
+
+  importPreviewEl.innerHTML = data.groups.map(g => `
+    <div class="import-group">
+      <span class="import-gtag">${escapeHtml(g.name)} · ${g.list.length} 人</span>
+      <span class="import-gnames">${g.list.map(escapeHtml).join('、')}</span>
+    </div>
+  `).join('');
+  importPreviewEl.classList.add('show');
+
+  importAppendBtn.disabled = false;
+  importReplaceBtn.disabled = false;
+}
+
+function ensureImportGroups(list) {
+  list.forEach(s => {
+    if (!groupMeta.some(g => g.name === s.group)) {
+      groupMeta.push({ name: s.group, score: 0, hue: baseHue(s.group) });
+    }
+    if (conductScores[s.name] === undefined) conductScores[s.name] = INIT_SCORE;
+  });
+}
+
+importSeatBtn.addEventListener('click', () => {
+  importFileInput.value = '';
+  importParsed = [];
+  importSummaryEl.textContent = '选择文件后会在这里显示识别结果';
+  importSummaryEl.classList.remove('error');
+  importPreviewEl.classList.remove('show');
+  importPreviewEl.innerHTML = '';
+  importAppendBtn.disabled = true;
+  importReplaceBtn.disabled = true;
+  openModal(importModal, importFileInput);
+});
+
+importFileInput.addEventListener('change', async () => {
+  const file = importFileInput.files && importFileInput.files[0];
+  if (!file) return;
+
+  importSummaryEl.classList.remove('error');
+  importSummaryEl.textContent = '正在解析…';
+  importPreviewEl.classList.remove('show');
+  importAppendBtn.disabled = true;
+  importReplaceBtn.disabled = true;
+
+  try {
+    const rows = await readSeatingFile(file);
+    renderImportPreview(collectParsed(rowsToStudents(rows)));
+  } catch (err) {
+    importParsed = [];
+    importSummaryEl.textContent = (err && err.message) || '文件解析失败，请检查格式';
+    importSummaryEl.classList.add('error');
+  }
+});
+
+importAppendBtn.addEventListener('click', () => {
+  if (!importParsed.length) return;
+
+  const existing = new Set(roster.map(s => s.name));
+  let added = 0;
+
+  importParsed.forEach(s => {
+    if (existing.has(s.name)) return;
+    existing.add(s.name);
+    roster.push({ name: s.name, group: s.group });
+    added++;
+  });
+
+  if (!added) {
+    showToast('名单中已包含全部学生，无需追加');
+    return;
+  }
+
+  ensureImportGroups(importParsed);
+  persistAll();
+  afterRosterChange();
+  closeModal(importModal);
+  showToast(`已追加 ${added} 名学生`);
+});
+
+importReplaceBtn.addEventListener('click', () => {
+  if (!importParsed.length) return;
+
+  askConfirm(
+    '覆盖名单',
+    `将用导入的 ${importParsed.length} 名学生替换现有 ${roster.length} 名学生的名单。小组与小组积分保留，同名学生的操行分保留。`,
+    () => {
+      const nextNames = new Set(importParsed.map(s => s.name));
+      Object.keys(conductScores).forEach(n => {
+        if (!nextNames.has(n)) delete conductScores[n];
+      });
+
+      roster = importParsed.map(s => ({ name: s.name, group: s.group }));
+      ensureImportGroups(importParsed);
+      persistAll();
+      afterRosterChange();
+      closeModal(importModal);
+      showToast(`名单已更新为 ${roster.length} 名学生`);
+    }
+  );
+});
+
+importCancelBtn.addEventListener('click', () => closeModal(importModal));
+importModal.addEventListener('click', e => {
+  if (e.target === importModal) closeModal(importModal);
+});
+
+importTemplateBtn.addEventListener('click', () => {
+  const lines = ['姓名,小组'];
+  roster.forEach(s => lines.push(`${s.name},${s.group}`));
+
+  const blob = new Blob(['\uFEFF' + lines.join('\r\n')], { type: 'text/csv;charset=utf-8' });
+  const url  = URL.createObjectURL(blob);
+  const a    = document.createElement('a');
+  a.href = url;
+  a.download = '座位表模板.csv';
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 1500);
+
+  showToast('模板已下载，可用 Excel 编辑后重新导入');
+});
+
+
+/* ==========================================================
+   顶部信息栏：实时时钟 + 全屏切换
+   ========================================================== */
+const clockEl = document.getElementById('clock');
+const fsBtn   = document.getElementById('fsBtn');
+
+function tickClock() {
+  const now = new Date();
+  const hh  = String(now.getHours()).padStart(2, '0');
+  const mi  = String(now.getMinutes()).padStart(2, '0');
+  clockEl.textContent = `${now.getMonth() + 1}月${now.getDate()}日 ${hh}:${mi}`;
+  clockEl.title = now.toLocaleDateString('zh-Hans-CN', { weekday: 'long' });
+}
+tickClock();
+setInterval(tickClock, 30000);
+
+function syncFsBtn() {
+  const on = !!document.fullscreenElement;
+  fsBtn.textContent = on ? '⤢' : '⛶';
+  fsBtn.title = on ? '退出全屏' : '切换全屏';
+  fsBtn.setAttribute('aria-label', fsBtn.title);
+}
+
+fsBtn.addEventListener('click', async () => {
+  try {
+    if (document.fullscreenElement) {
+      await document.exitFullscreen();
+    } else if (document.documentElement.requestFullscreen) {
+      await document.documentElement.requestFullscreen();
+    } else {
+      showToast('当前浏览器不支持全屏');
+    }
+  } catch (err) {
+    showToast('全屏切换失败');
+  }
+});
+
+document.addEventListener('fullscreenchange', syncFsBtn);
 
 
 /* ==========================================================
